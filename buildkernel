@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# Build Ragnarok's version of the Linux kernel.
+# Usage: export DEBEMAIL="yourmail" DEBFULLNAME="yourname" && ./buildkernel
+
+# Version of Debian's 'linux-source' package
+VERSION="6.1"
+
+# Fetch the 'linux-source' package and install build dependencies
+apt-get install -y linux-source
+apt-get build-dep -y linux
+
+# Extract the source to current dir
+tar xvf /usr/src/linux-source-"${VERSION}" -C .
+
+# Copy Ragnarok's kernel config
+cp ragnarok.conf linux-source-"${VERSION}"/.config
+
+# Change dir, run make oldconfig
+cd linux-source-"${VERSION}" && \
+	make CC=clang LLVM=1 oldconfig && \
+	cd ..
+
+# Build the kernel package
+make -C linux-source-"${VERSION}" CC=clang LLVM=1 -j"$(nproc)" bindeb-pkg LOCALVERSION=-ragnarok
+
+# Cleaning up
+#mv linux-source-"${VERSION}"/linux-image-amd64 .
+#rm -r linux-source-"${VERSION}"
