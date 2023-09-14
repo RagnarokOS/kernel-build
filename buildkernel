@@ -25,5 +25,4 @@ cd linux-source-"${VERSION}" && \
 make -C linux-source-"${VERSION}" CC=clang LLVM=1 -j"$(nproc)" bindeb-pkg LOCALVERSION=-ragnarok
 
 # Cleaning up
-#mv linux-source-"${VERSION}"/linux-image-amd64 .
-#rm -r linux-source-"${VERSION}"
+rm -r linux-source-"${VERSION}"
