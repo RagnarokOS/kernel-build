@@ -13,6 +13,10 @@ doas apt-get build-dep -y linux
 # Extract the source to current dir
 tar xvf /usr/src/linux-source-"${VERSION}" -C .
 
+# 'apt-get build-dep linux' installs this directory in /usr/src
+# so copy it in the work dir.
+cp -r /usr/src/python3.11 .
+
 # Copy Ragnarok's kernel config
 cp ragnarok.conf linux-source-"${VERSION}"/.config
 
