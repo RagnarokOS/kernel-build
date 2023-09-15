@@ -7,8 +7,8 @@
 VERSION="6.1"
 
 # Fetch the 'linux-source' package and install build dependencies
-apt-get install -y linux-source
-apt-get build-dep -y linux
+doas apt-get install -y linux-source
+doas apt-get build-dep -y linux
 
 # Extract the source to current dir
 tar xvf /usr/src/linux-source-"${VERSION}" -C .
@@ -22,7 +22,7 @@ cd linux-source-"${VERSION}" && \
 	cd ..
 
 # Build the kernel package
-make -C linux-source-"${VERSION}" CC=clang LLVM=1 -j"$(nproc)" bindeb-pkg LOCALVERSION=-ragnarok
+make -C linux-source-"${VERSION}" CC=clang LLVM=1 -j"$(nproc)" bindeb-pkg
 
 # Cleaning up
 rm -r linux-source-"${VERSION}"
