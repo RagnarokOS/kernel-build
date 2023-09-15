@@ -30,3 +30,4 @@ make -C linux-source-"${VERSION}" CC=clang LLVM=1 -j"$(nproc)" bindeb-pkg
 
 # Cleaning up
 rm -r linux-source-"${VERSION}"
+rm -r python3.11
