@@ -9,7 +9,7 @@
 set -e
 
 # Which version is it.
-VERSION="16"
+VERSION="17"
 
 # Install the LLVM/Clang packages.
 apt-get install -y libllvm"${VERSION}" llvm-"${VERSION}" llvm-"${VERSION}"-dev \
