@@ -1,8 +1,8 @@
---- /boot/config-6.1.0-17-amd64	2023-12-30 04:31:20.000000000 -0500
-+++ ragnarok.conf	2024-01-01 11:36:49.049081914 -0500
+--- /boot/config-6.1.0-18-amd64	2024-02-01 03:05:49.000000000 -0500
++++ ragnarok.conf	2024-02-10 16:02:53.626815827 -0500
 @@ -2,19 +2,20 @@
  # Automatically generated file; DO NOT EDIT.
- # Linux/x86 6.1.69 Kernel Configuration
+ # Linux/x86 6.1.76 Kernel Configuration
  #
 -CONFIG_CC_VERSION_TEXT="gcc-12 (Debian 12.2.0-14) 12.2.0"
 -CONFIG_CC_IS_GCC=y
@@ -441,7 +441,7 @@
  CONFIG_CRC_T10DIF=m
  CONFIG_CRC64_ROCKSOFT=m
  CONFIG_CRC_ITU_T=m
-@@ -10281,25 +10223,14 @@
+@@ -10281,26 +10223,14 @@
  #
  # Compile-time checks and compiler options
  #
@@ -458,6 +458,7 @@
 -# CONFIG_DEBUG_INFO_SPLIT is not set
 -CONFIG_DEBUG_INFO_BTF=y
 -CONFIG_PAHOLE_HAS_SPLIT_BTF=y
+-CONFIG_PAHOLE_HAS_LANG_EXCLUDE=y
 -CONFIG_DEBUG_INFO_BTF_MODULES=y
 -CONFIG_MODULE_ALLOW_BTF_MISMATCH=y
 -# CONFIG_GDB_SCRIPTS is not set
@@ -469,7 +470,7 @@
  CONFIG_SECTION_MISMATCH_WARN_ONLY=y
  # CONFIG_DEBUG_FORCE_FUNCTION_ALIGN_64B is not set
  CONFIG_OBJTOOL=y
-@@ -10362,18 +10293,21 @@
+@@ -10363,18 +10293,21 @@
  # CONFIG_DEBUG_VM is not set
  # CONFIG_DEBUG_VM_PGTABLE is not set
  CONFIG_ARCH_HAS_DEBUG_VIRTUAL=y
@@ -492,7 +493,7 @@
  # end of Memory Debugging
  
  # CONFIG_DEBUG_SHIRQ is not set
-@@ -10381,8 +10315,8 @@
+@@ -10382,8 +10315,8 @@
  #
  # Debug Oops, Lockups and Hangs
  #
@@ -503,7 +504,7 @@
  CONFIG_PANIC_TIMEOUT=0
  CONFIG_LOCKUP_DETECTOR=y
  CONFIG_SOFTLOCKUP_DETECTOR=y
-@@ -10407,7 +10341,7 @@
+@@ -10408,7 +10341,7 @@
  # end of Scheduler Debugging
  
  # CONFIG_DEBUG_TIMEKEEPING is not set
@@ -512,7 +513,7 @@
  
  #
  # Lock Debugging (spinlocks, mutexes, etc...)
-@@ -10439,13 +10373,13 @@
+@@ -10440,13 +10373,13 @@
  #
  CONFIG_DEBUG_LIST=y
  # CONFIG_DEBUG_PLIST is not set
@@ -529,7 +530,7 @@
  
  #
  # RCU Debugging
-@@ -10519,7 +10453,7 @@
+@@ -10520,7 +10453,7 @@
  CONFIG_DYNAMIC_EVENTS=y
  CONFIG_PROBE_EVENTS=y
  CONFIG_FTRACE_MCOUNT_RECORD=y
@@ -538,7 +539,7 @@
  CONFIG_TRACING_MAP=y
  CONFIG_SYNTH_EVENTS=y
  CONFIG_HIST_TRIGGERS=y
-@@ -10623,6 +10557,7 @@
+@@ -10624,6 +10557,7 @@
  CONFIG_TEST_STATIC_KEYS=m
  # CONFIG_TEST_DYNAMIC_DEBUG is not set
  # CONFIG_TEST_KMOD is not set
