@@ -1,12 +1,5 @@
-# Changelog for Ragnarok's build of the Linux kernel
+ragnarok-kernel (01) stable; urgency=medium
 
-Version: 6.1.112-ragnarok-amd64
-Revision: 1
+  * Initial build of ragnarok's kernel metapackage.
 
-Changes:
-
-* none
-
-Bugs:
-
-* none
+ -- Ian LeCorbeau <I-LeCorbeau@protonmail.com>  Wed, 23 Oct 2024 13:55:49 -0400
