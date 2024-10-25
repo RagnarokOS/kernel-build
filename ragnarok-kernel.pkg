@@ -15,6 +15,10 @@ Recommends: apparmor,
  firmware-linux-free,
 Architecture: amd64
 Changelog: changelog
+Postinst: postinst
+Preinst: preinst
+Postrm: postrm
+Prerm: prerm
 Description: meta-package for Ragnarok's kernel.
  This is a meta-package which depends on Ragnarok's
  kernel build and dependencies.
