@@ -1,5 +1,6 @@
 # Build the kernel and related packages quick.
 
+PKG_VERSION = 01-1
 VERSION = 6.1.112
 SCRIPTS = preinst postinst prerm postrm
 
@@ -13,5 +14,4 @@ pkg:
 		cp scripts/$$_file .; \
 		sed -i -e 's|@VERSION@|${VERSION}|g' $$_file; \
 		done
-	equivs-build ragnarok-kernel.pkg 2>&1 | tee $$_pkg.build
-
+	equivs-build ragnarok-kernel.pkg 2>&1 | tee ragnarok-kernel_${PKG_VERSION}-amd64.build
