@@ -9,7 +9,6 @@ Depends: linux-image-6.1.112-ragnarok-amd64,
  linux-headers-6.1.112-ragnarok-amd64,
  linux-libc-dev,
 Architecture: amd64
-Changelog: changelog
 Description: meta-package for Ragnarok's kernel.
  This is a meta-package which depends on Ragnarok's
  kernel build and dependencies.

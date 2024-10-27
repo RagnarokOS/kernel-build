@@ -3,16 +3,15 @@ Priority: optional
 Standards-Version: 3.9.2
 
 Package: ragnarok-kernel
-Version: 01
+Version: 01-2
 Maintainer: Ian LeCorbeau <I-LeCorbeau@protonmail.com>
-Depends: linux-image-ragnarok-amd64
+Depends: linux-image-ragnarok-amd64,
  initramfs-tools,
  kmod,
  linux-base,
 Recommends: apparmor,
  firmware-linux-free,
 Architecture: amd64
-Changelog: changelog
 Postinst: postinst
 Preinst: preinst
 Postrm: postrm
