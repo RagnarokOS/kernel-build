@@ -2,21 +2,14 @@ Section: kernel
 Priority: optional
 Standards-Version: 3.9.2
 
-Package: ragnarok-kernel
-Version: 01
+Package: linux-image-ragnarok-amd64
+Version: 6.1.112
 Maintainer: Ian LeCorbeau <I-LeCorbeau@protonmail.com>
-Depends: linux-image-ragnarok-amd64
- initramfs-tools,
- kmod,
- linux-base,
-Recommends: apparmor,
- firmware-linux-free,
+Depends: linux-image-6.1.112-ragnarok-amd64,
+ linux-headers-6.1.112-ragnarok-amd64,
+ linux-libc-dev,
 Architecture: amd64
 Changelog: changelog
-Postinst: postinst
-Preinst: preinst
-Postrm: postrm
-Prerm: prerm
 Description: meta-package for Ragnarok's kernel.
  This is a meta-package which depends on Ragnarok's
  kernel build and dependencies.
