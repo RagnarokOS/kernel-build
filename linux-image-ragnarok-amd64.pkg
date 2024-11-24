@@ -3,10 +3,10 @@ Priority: optional
 Standards-Version: 3.9.2
 
 Package: linux-image-ragnarok-amd64
-Version: 6.1.115
+Version: 6.1.119
 Maintainer: Ian LeCorbeau <I-LeCorbeau@protonmail.com>
-Depends: linux-image-6.1.115-ragnarok-amd64,
- linux-headers-6.1.115-ragnarok-amd64,
+Depends: linux-image-6.1.119-ragnarok-amd64,
+ linux-headers-6.1.119-ragnarok-amd64,
  linux-libc-dev,
 Architecture: amd64
 Description: meta-package for Ragnarok's kernel.

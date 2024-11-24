@@ -1,8 +1,8 @@
---- /boot/config-6.1.0-27-amd64	2024-11-01 00:23:37.000000000 -0400
-+++ ragnarok.conf	2024-11-09 13:19:26.148312074 -0500
+--- /boot/config-6.1.0-28-amd64	2024-11-22 17:27:23.000000000 -0500
++++ ragnarok.conf	2024-11-24 18:44:36.681314855 -0500
 @@ -2,20 +2,20 @@
  # Automatically generated file; DO NOT EDIT.
- # Linux/x86 6.1.115 Kernel Configuration
+ # Linux/x86 6.1.119 Kernel Configuration
  #
 -CONFIG_CC_VERSION_TEXT="gcc-12 (Debian 12.2.0-14) 12.2.0"
 -CONFIG_CC_IS_GCC=y
