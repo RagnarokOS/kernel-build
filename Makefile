@@ -1,7 +1,7 @@
 # Build the kernel and related packages quick.
 
-PKG_VERSION = 01-4
-VERSION = 6.1.119
+PKG_VERSION = 01-5
+VERSION = 6.1.123
 SCRIPTS = preinst postinst prerm postrm
 
 all: kernel pkg
