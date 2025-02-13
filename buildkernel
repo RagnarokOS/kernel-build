@@ -1,33 +1,64 @@
 #!/bin/sh
 
-# Build Ragnarok's version of the Linux kernel.
-# Usage: export DEBEMAIL="yourmail" DEBFULLNAME="yourname" && ./buildkernel
+# Build Ragnarok's version of the Linux kernel from 'gentoo-sources'.
+# WIP: this needs to be tested.
 
-# Version of Debian's 'linux-source' package
-VERSION="6.1"
+set -e
 
-# Fetch the 'linux-source' package and install build dependencies
-doas apt-get install -y linux-source
-doas apt-get build-dep -y linux
+_PKGDIR="/usr/src/linux"
+_CONF="/usr/src/ragnarok.config"
 
-# Extract the source to current dir
-tar xvf /usr/src/linux-source-"${VERSION}" -C .
+# Replace EXTRAVERSION = -gentoo with -ragnarok in Makefile.
+sed -i -e '/EXTRAVERSION = -gentoo/c\EXTRAVERSION = -ragnarok' Makefile
 
-# 'apt-get build-dep linux' installs this directory in /usr/src
-# so copy it in the work dir.
-cp -r /usr/src/python3.11 .
+# Get info from Makefile in order to construct the package name. There's
+# probably a more efficient way of doing it.
+_v=$(awk '/VERSION = / { print $3;exit }' Makefile)
+_p=$(awk '/PATCHLEVEL = / { print $3 }' Makefile)
+_s=$(awk '/SUBLEVEL = / { print $3 }' Makefile)
+_ev=$(awk '/EXTRAVERSION = / { print $3 }' Makefile)
+_pkg="linux-${_v}.${_p}.${_s}${_ev}.tgz"
 
-# Copy Ragnarok's kernel config
-cp ragnarok.conf linux-source-"${VERSION}"/.config
+msg() {
+	msg="$1"
+	printf '%s\n' "$msg"
+}
 
-# Change dir, run make oldconfig
-cd linux-source-"${VERSION}" && \
-	make CC=clang LLVM=1 oldconfig && \
-	cd ..
+# Make sure we're in the right dir. Nothing bad will happen if we're not
+# in the right dir, but still, output an error either way.
+if [ "$(pwd)" != "$_PKGDIR" ]; then
+	msg "You must be in /usr/src/linux in order to run this script."
+	exit 1
+fi
 
-# Build the kernel package
-make -C linux-source-"${VERSION}" CC=clang LLVM=1 -j"$(nproc)" bindeb-pkg
+# Safety net. Because recompiling the kernel multiple times in a row for
+# stupid reasons suck, ensure that EXTRAVERSION is properly set in Makefile.
+# The sed command shouldn't fail, but if it ever does, this will prevent
+# the build from starting.
+if [ "$_ev" != "-ragnarok" ]; then
+	msg "_ev is not set to -ragnarok... exiting."
+	exit 1
+fi
 
-# Cleaning up
-rm -r linux-source-"${VERSION}"
-rm -r python3.11
+# Copy ragnarok.config to dir.
+msg "Copying $_CONF to /usr/src/linux/.config..."
+cp "$_CONF" "$_PKGDIR"/.config
+
+# Run make oldconfig.
+msg "Running oldconfig..."
+make CC=clang LLVM=1 oldconfig
+
+# Now build the kernel.
+msg "Building the kernel in 5 seconds..."
+sleep 5	# Sleep 5 seconds to allow cancelling for whatever reason.
+make CC=clang LLVM=1 -j"$(nproc)" dir-pkg
+
+# Now build the package.
+msg "Creating ${_pkg}..."
+cd "$_PKGDIR"/tar-install/boot || exit
+for _f in vmlinuz-* config-* System.map-*; do ln -r -s "$_f" "${_f%%-*}"; done
+cd "$_PKGDIR"/tar-install || exit
+tar czvf "${_pkg}" --exclude=build/ --owner=root --group=root --sort=name *
+cd "$_PKGDIR" || exit
+
+msg "Package created successfully."
