@@ -31,6 +31,20 @@ if [ "$(pwd)" != "$_PKGDIR" ]; then
 	exit 1
 fi
 
+# Make sure ragnarok.config is present in /usr/src.
+if [ ! -f "$_CONF" ]; then
+	msg "$_CONF is missing. Make sure you fetched it from
+https://raw.githubusercontent.com/RagnarokOS/kernel-build/refs/heads/gentoo-kernel/ragnarok.config
+before building the kernel."
+	exit 1
+fi
+
+# Check if Clang is installed
+if [ ! -d /usr/lib/llvm ]; then
+	msg "You need clang and the full LLVM toolchain to build the kernel."
+	exit 1
+fi
+
 # Safety net. Because recompiling the kernel multiple times in a row for
 # stupid reasons suck, ensure that EXTRAVERSION is properly set in Makefile.
 # The sed command shouldn't fail, but if it ever does, this will prevent
