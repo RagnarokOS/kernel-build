@@ -69,10 +69,9 @@ make CC=clang LLVM=1 -j"$(nproc)" dir-pkg
 
 # Now build the package.
 msg "Creating ${_pkg}..."
-cd "$_PKGDIR"/tar-install/boot || exit
-for _f in vmlinuz-* config-* System.map-*; do ln -r -s "$_f" "${_f%%-*}"; done
-cd "$_PKGDIR"/tar-install || exit
-tar czvf "${_pkg}" --exclude=build/ --owner=root --group=root --sort=name *
-cd "$_PKGDIR" || exit
+(cd "$_PKGDIR"/tar-install/boot && \
+	for _f in vmlinuz-* config-* System.map-*; do ln -r -s "$_f" "${_f%%-*}"; done)
+(cd "$_PKGDIR"/tar-install && \
+	tar czvf "${_pkg}" --exclude=build/ --owner=root --sort=name *)
 
 msg "Package created successfully."
