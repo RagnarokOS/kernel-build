@@ -72,6 +72,6 @@ msg "Creating ${_pkg}..."
 (cd "$_PKGDIR"/tar-install/boot && \
 	for _f in vmlinuz-* config-* System.map-*; do ln -r -s "$_f" "${_f%%-*}"; done)
 (cd "$_PKGDIR"/tar-install && \
-	tar czvf "${_pkg}" --exclude=build/ --owner=root --sort=name *)
+	tar czvf "../${_pkg}" --exclude=build/ --owner=root --sort=name *)
 
 msg "Package created successfully."
