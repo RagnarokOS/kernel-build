@@ -31,14 +31,14 @@ src_install() (
 	insinto ${MODULES_TARGET}
 		doins -r ${PVR}-ragnarok
 
-	dodir boot
+	dodir /boot
 	
-	insinto boot
+	insinto /boot
 		doins -r boot
 	
 	# Put Ragnarok's config in Gentoo's kernel source dir.
 	insinto ${SRC_DIR}
-		doins .config
+		newins boot/config-${PVR} .config
 )
 
 pkg_postinst() {
