@@ -1,4 +1,3 @@
-*.deb
-*.tar.xz
-*.buildinfo
-*.changes
+*.tgz
+SHA256
+SHA256.sig

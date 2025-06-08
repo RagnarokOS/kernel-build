@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Sign the kernel tarball with signify.
+
+_seckey=$1
+_kver=$2
+_version="02"
+
+/usr/bin/sha256sum --tag linux-"${_kver}"-ragnarok.tgz > SHA256
+/usr/bin/signify -S -s "${_seckey}" -m SHA256 -x SHA256.sig
+/usr/bin/cat SHA256 >> SHA256.sig
+
+# Verify for good measure
+/usr/bin/signify -C -p /etc/signify/ragnarok"${_version}".pub -x SHA256.sig
+
