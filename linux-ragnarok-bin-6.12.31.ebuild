@@ -56,5 +56,5 @@ pkg_postinst() {
 	/usr/bin/dracut --kver=${PVR}
 
 	# Update grub config
-	/usr/bin/grub-mkconfig -o /boot/grub/
+	/usr/bin/grub-mkconfig -o /boot/grub/grub.cfg
 }
