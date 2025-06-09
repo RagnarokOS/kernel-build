@@ -22,6 +22,13 @@ BDEPEND="
 
 QA_PREBUILT="*"
 
+src_prepare() {
+	# die if /boot isn't mounted.
+	if ! /usr/bin/mount | grep -q /boot; then
+		die "/boot needs to be mounted."
+	fi
+}
+
 src_install() (
 	declare MODULES_TARGET=/usr/lib/modules/${PVR}-ragnarok
 	declare SRC_DIR=/usr/src/linux-${PVR}-gentoo
@@ -44,4 +51,10 @@ src_install() (
 pkg_postinst() {
 	dodir /usr/src/linux
 	dosym /usr/src/linux-${PVR}-gentoo /usr/src/linux
+
+	# Create initramfs
+	/usr/bin/dracut --kver=${PVR}
+
+	# Update grub config
+	/usr/bin/grub-mkconfig -o /boot/grub/
 }
