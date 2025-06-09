@@ -5,7 +5,7 @@ EAPI=8
 
 DESCRIPTION="Pre-built version of Ragnarok's Linux kernel build"
 HOMEPAGE="https://github.com/RagnarokOS/kernel-build"
-SRC_URI="https://github.com/RagnarokOS/kernel-build/releases/tag/${PVR}/linux-ragnarok-bin-${PVR}.tgz"
+SRC_URI="https://github.com/RagnarokOS/kernel-build/releases/tag/${PVR}/linux-${PVR}-ragnarok.tgz"
 
 SLOT="0"
 KEYWORDS="amd64"
