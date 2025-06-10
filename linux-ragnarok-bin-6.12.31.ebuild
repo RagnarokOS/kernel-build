@@ -5,13 +5,15 @@ EAPI=8
 
 DESCRIPTION="Pre-built version of Ragnarok's Linux kernel build"
 HOMEPAGE="https://github.com/RagnarokOS/kernel-build"
-SRC_URI="https://github.com/RagnarokOS/kernel-build/releases/tag/${PVR}/linux-${PVR}-ragnarok.tgz"
+SRC_URI="https://github.com/RagnarokOS/kernel-build/releases/download/${PVR}/linux-${PVR}-ragnarok.tgz"
+
+S=${WORKDIR}
 
 SLOT="0"
 KEYWORDS="amd64"
 
 # Fetch gentoo-sources first.
-DEPEND="sys-kernel/gentoo-sources-${PVR}"
+DEPEND="~sys-kernel/gentoo-sources-${PVR}"
 RDEPEND="${DEPEND}"
 BDEPEND="
 		app-alternatives/bc
@@ -27,34 +29,30 @@ src_prepare() {
 	if ! /usr/bin/mount | grep -q /boot; then
 		die "/boot needs to be mounted."
 	fi
+	eapply_user
 }
 
 src_install() (
-	declare MODULES_TARGET=/usr/lib/modules/${PVR}-ragnarok
+	declare MODULES_TARGET=/usr
 	declare SRC_DIR=/usr/src/linux-${PVR}-gentoo
 
 	dodir ${MODULES_TARGET}
 
 	insinto ${MODULES_TARGET}
-		doins -r ${PVR}-ragnarok
+		doins -r lib
 
-	dodir /boot
-	
-	insinto /boot
+	insinto /
 		doins -r boot
-	
+
 	# Put Ragnarok's config in Gentoo's kernel source dir.
 	insinto ${SRC_DIR}
-		newins boot/config-${PVR} .config
+		newins boot/config-${PVR}-ragnarok .config
 )
 
 pkg_postinst() {
-	dodir /usr/src/linux
-	dosym /usr/src/linux-${PVR}-gentoo /usr/src/linux
-
-	# Create initramfs
-	/usr/bin/dracut --kver=${PVR}
-
-	# Update grub config
-	/usr/bin/grub-mkconfig -o /boot/grub/grub.cfg
+	elog "The Ragnarok kernel has been installed."
+	elog "Don't forget to generate a new initramfs with"
+	elog "the 'dracut --kver=${PVR}-ragnarok command"
+	elog "and update your grub configuration with the"
+	elog "'grub-mkconfig -o /boot/grub/grub.cfg' command."
 }
