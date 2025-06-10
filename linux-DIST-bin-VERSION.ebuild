@@ -12,12 +12,15 @@ S=${WORKDIR}
 SLOT="0"
 KEYWORDS="amd64"
 
+# Do not strip, this removes the modules signatures.
+RESTRICT="strip"
+
 # Fetch gentoo-sources first.
 DEPEND="~sys-kernel/gentoo-sources-${PVR}"
 RDEPEND="${DEPEND}"
 BDEPEND="
 		app-alternatives/bc
-		app-alternatives/flex
+		sys-devel/flex
 		virtual/libelf
 		app-alternatives/yacc
 "
@@ -49,10 +52,15 @@ src_install() (
 		newins boot/config-${PVR}-ragnarok .config
 )
 
+pkg_preinst() {
+	# Move old symlinks.
+	(cd /boot && for _f in config System.map vmlinuz; do mv ${_f} ${_f}.old; done)
+}
+
 pkg_postinst() {
 	elog "The Ragnarok kernel has been installed."
 	elog "Don't forget to generate a new initramfs with"
-	elog "the 'dracut --kver=${PVR}-ragnarok command"
+	elog "the 'dracut --kver=${PVR}-ragnarok' command"
 	elog "and update your grub configuration with the"
 	elog "'grub-mkconfig -o /boot/grub/grub.cfg' command."
 }
