@@ -17,7 +17,7 @@ _v=$(awk '/VERSION = / { print $3;exit }' Makefile)
 _p=$(awk '/PATCHLEVEL = / { print $3 }' Makefile)
 _s=$(awk '/SUBLEVEL = / { print $3 }' Makefile)
 _ev=$(awk '/EXTRAVERSION = / { print $3 }' Makefile)
-_pkg="linux-${_v}.${_p}.${_s}${_ev}.tgz"
+_pkg="linux-${_v}.${_p}.${_s}${_ev}.tar.xz"
 
 msg() {
 	msg="$1"
@@ -72,6 +72,6 @@ msg "Creating ${_pkg}..."
 (cd "$_PKGDIR"/tar-install/boot && \
 	for _f in vmlinuz-* config-* System.map-*; do ln -r -s "$_f" "${_f%%-*}"; done)
 (cd "$_PKGDIR"/tar-install && \
-	tar czvf "../${_pkg}" --exclude=build/ --owner=root --sort=name *)
+	tar cpPJvf "../${_pkg}" --exclude=build/ --sort=name *)
 
 msg "Package created successfully."
